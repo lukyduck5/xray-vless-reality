@@ -90,7 +90,7 @@ if [ $# -ge 1 ]; then
     # 第3个参数是域名
     domain=${3}
     if [[ -z $domain ]]; then
-      domain="learn.microsoft.com"
+      domain="akcdnoversea.inter.71edge.com"
     fi
 
     # 第4个参数是UUID
@@ -292,8 +292,8 @@ fi
 # 目标网站
 if [[ -z $domain ]]; then
   echo -e "请输入一个 ${magenta}合适的域名${none} Input the domain"
-  read -p "(例如: learn.microsoft.com): " domain
-  [ -z "$domain" ] && domain="learn.microsoft.com"
+  read -p "(例如: akcdnoversea.inter.71edge.com): " domain
+  [ -z "$domain" ] && domain="akcdnoversea.inter.71edge.com"
 
   echo
   echo
@@ -311,7 +311,7 @@ cat > /usr/local/etc/xray/config.json <<-EOF
   "log": {
     "access": "/var/log/xray/access.log",
     "error": "/var/log/xray/error.log",
-    "loglevel": "warning"
+    "loglevel": "none"
   },
   "inbounds": [
     // [inbound] 如果你想使用其它翻墙服务端如(HY2或者NaiveProxy)对接v2ray的分流规则, 那么取消下面一段的注释, 并让其它翻墙服务端接到下面这个socks 1080端口
@@ -357,7 +357,7 @@ cat > /usr/local/etc/xray/config.json <<-EOF
         }
       },
       "sniffing": {
-        "enabled": true,
+        "enabled": false,
         "destOverride": ["http", "tls", "quic"]
       }
     }
@@ -399,11 +399,7 @@ cat > /usr/local/etc/xray/config.json <<-EOF
   ],
   "dns": {
     "servers": [
-      "8.8.8.8",
-      "1.1.1.1",
-      "2001:4860:4860::8888",
-      "2606:4700:4700::1111",
-      "localhost"
+      "quic+local://x-hagezi-proplus.freedns.controld.com"
     ]
   },
   "routing": {
@@ -420,11 +416,11 @@ cat > /usr/local/etc/xray/config.json <<-EOF
 //   "domain": ["geosite:cn"],  // ***
 //   "outboundTag": "force-ipv6"  // force-ipv6 // force-ipv4 // socks5-warp // blocked
 //},
-//{
-//   "type": "field",
-//   "ip": ["geoip:cn"],  // ***
-//   "outboundTag": "force-ipv6"  // force-ipv6 // force-ipv4 // socks5-warp // blocked
-//},
+{
+   "type": "field",
+   "ip": ["geoip:cn"],  // ***
+   "outboundTag": "block"  // force-ipv6 // force-ipv4 // socks5-warp // blocked
+},
       {
         "type": "field",
         "ip": ["geoip:private"],
