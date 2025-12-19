@@ -399,7 +399,7 @@ cat > /usr/local/etc/xray/config.json <<-EOF
   ],
   "dns": {
     "servers": [
-      "quic+local://x-hagezi-proplus.freedns.controld.com"
+      "76.76.2.11"
     ]
   },
   "routing": {
